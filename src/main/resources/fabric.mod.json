@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "id": "${mod_id}",
+  "version": "${version}",
+  "name": "Springier Life",
+  "description": "WW addon!",
+  "authors": [
+    "Lunade"
+  ],
+  "contact": {
+    "homepage": "https://modrinth.com/mod/wilder-wild",
+    "sources": "https://github.com/FrozenBlock/WilderWild",
+    "issues": "https://github.com/FrozenBlock/WilderWild/issues"
+  },
+  "license": "GPL-3.0",
+  "icon": "assets/springierlife/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "net.frozenblock.springierlife.SpringierLifeClient"
+    ],
+    "fabric-datagen": [
+      "net.frozenblock.springierlife.datagen.SLDataGenerator"
+    ]
+  },
+  "mixins": [
+    "springierlife.mixins.json"
+  ],
+  "accessWidener": "springierlife.accesswidener",
+  "depends": {
+    "frozenlib": "${frozenlib_version}",
+    "wilderwild": "${wilderwild_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}",
+    "java": ">=21"
+  },
+  "suggests": {
+    "cloth-config": "*",
+    "terrablender": "*"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "X": "https://x.com/FB_Oasis",
+        "Bluesky": "https://bsky.app/profile/frozenblock.bsky.social",
+        "modmenu.discord": "https://discord.gg/frozenblock",
+        "modmenu.modrinth": "https://modrinth.com/organization/frozenblock",
+        "modmenu.youtube": "https://www.youtube.com/@frozenblockmoddingoasismod",
+        "modmenu.kofi": "https://ko-fi.com/frozenblock"
+      },
+      "badges": [
+        "frozenblock"
+      ]
+    },
+    "frozenlib_registry": {
+      "mod_protocol": $protocol_version
+    },
+    "lithium:options": {
+      "mixin.world.raycast": false
+    }
+  }
+}
