@@ -18,6 +18,7 @@
 
 package net.frozenblock.happierghasts.entity;
 
+import net.frozenblock.happierghasts.entity.ai.happy_ghast.HappyGhastFollowMobGoal;
 import net.frozenblock.happierghasts.entity.ai.happy_ghast.HappyGhastFreezeGoal;
 import net.frozenblock.happierghasts.entity.ai.happy_ghast.HappyGhastLookGoal;
 import net.frozenblock.happierghasts.entity.ai.happy_ghast.HappyGhastMoveControl;
@@ -26,6 +27,7 @@ import net.frozenblock.happierghasts.entity.ai.happy_ghast.HappyGhastReturnToHom
 import net.frozenblock.happierghasts.entity.ai.happy_ghast.HappyGhastTemptGoal;
 import net.frozenblock.happierghasts.registry.HGEntityTypes;
 import net.frozenblock.happierghasts.registry.HGSounds;
+import net.frozenblock.happierghasts.tag.HGEntityTypeTags;
 import net.frozenblock.happierghasts.tag.HGItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
@@ -39,11 +41,13 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityReference;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.OwnableEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
@@ -60,8 +64,10 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
-public class HappyGhast extends Animal implements FlyingAnimal {
+public class HappyGhast extends Animal implements FlyingAnimal, OwnableEntity {
 	private Optional<GlobalPos> homePosition = Optional.empty();
+	@Nullable
+	private EntityReference<LivingEntity> owner;
 
 	public HappyGhast(EntityType<? extends HappyGhast> entityType, Level level) {
 		super(entityType, level);
@@ -82,6 +88,7 @@ public class HappyGhast extends Animal implements FlyingAnimal {
 		if (this.isBaby()) {
 			this.goalSelector.addGoal(1, new HappyGhastTemptGoal(this, 1.25D, itemStack -> itemStack.is(Items.SNOWBALL), happyGhast -> true));
 			this.goalSelector.addGoal(2, new HappyGhastReturnToHomeGoal(this));
+			this.goalSelector.addGoal(3, new HappyGhastFollowMobGoal(this, 1D, entity -> entity.getType().is(HGEntityTypeTags.GHASTLING_FOLLOWS)));
 			this.goalSelector.addGoal(4, new HappyGhastRandomFloatAroundGoal(this));
 			this.goalSelector.addGoal(5, new HappyGhastLookGoal(this));
 		} else {
@@ -127,6 +134,16 @@ public class HappyGhast extends Animal implements FlyingAnimal {
 			.add(Attributes.TEMPT_RANGE, 64D);
 	}
 
+	@Nullable
+	@Override
+	public EntityReference<LivingEntity> getOwnerReference() {
+		return this.owner;
+	}
+
+	public void setOwner(@Nullable LivingEntity livingEntity) {
+		this.owner = livingEntity != null ? new EntityReference<>(livingEntity) : null;
+	}
+
 	@Override
 	public boolean canBeCollidedWith() {
 		return this.isSaddled();
@@ -134,8 +151,7 @@ public class HappyGhast extends Animal implements FlyingAnimal {
 
 	@Override
 	public void push(double d, double e, double f) {
-		if (this.isSaddled()) return;
-		super.push(d, e, f);
+		if (this.isBaby()) super.push(d, e, f);
 	}
 
 	@Override
@@ -318,12 +334,16 @@ public class HappyGhast extends Animal implements FlyingAnimal {
 	public void addAdditionalSaveData(CompoundTag compoundTag) {
 		super.addAdditionalSaveData(compoundTag);
 		this.homePosition.ifPresent(globalPos -> compoundTag.store("HomePosition", GlobalPos.CODEC, globalPos));
+		if (this.owner != null) {
+			this.owner.store(compoundTag, "Owner");
+		}
 	}
 
 	@Override
 	public void readAdditionalSaveData(CompoundTag compoundTag) {
 		super.readAdditionalSaveData(compoundTag);
 		this.homePosition = compoundTag.read("HomePosition", GlobalPos.CODEC);
+		this.owner = EntityReference.readWithOldOwnerConversion(compoundTag, "Owner", this.level());
 	}
 
 	@Override

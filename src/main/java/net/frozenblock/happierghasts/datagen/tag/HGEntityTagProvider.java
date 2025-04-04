@@ -21,7 +21,9 @@ package net.frozenblock.happierghasts.datagen.tag;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.frozenblock.happierghasts.tag.HGEntityTypeTags;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.world.entity.EntityType;
 import org.jetbrains.annotations.NotNull;
 
 public final class HGEntityTagProvider extends FabricTagProvider.EntityTypeTagProvider {
@@ -32,5 +34,31 @@ public final class HGEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 
 	@Override
 	protected void addTags(@NotNull HolderLookup.Provider arg) {
+		this.getOrCreateTagBuilder(HGEntityTypeTags.GHASTLING_FOLLOWS)
+			.add(EntityType.PLAYER)
+			.add(EntityType.ARMADILLO)
+			.add(EntityType.BEE)
+			.add(EntityType.CAMEL)
+			.add(EntityType.CAT)
+			.add(EntityType.CHICKEN)
+			.add(EntityType.COW)
+			.add(EntityType.DONKEY)
+			.add(EntityType.FOX)
+			.add(EntityType.GOAT)
+			.add(EntityType.HORSE)
+			.add(EntityType.SKELETON_HORSE)
+			.add(EntityType.LLAMA)
+			.add(EntityType.MULE)
+			.add(EntityType.OCELOT)
+			.add(EntityType.PANDA)
+			.add(EntityType.PARROT)
+			.add(EntityType.PIG)
+			.add(EntityType.POLAR_BEAR)
+			.add(EntityType.RABBIT)
+			.add(EntityType.SHEEP)
+			.add(EntityType.SNIFFER)
+			.add(EntityType.STRIDER)
+			.add(EntityType.VILLAGER)
+			.add(EntityType.WOLF);
 	}
 }
