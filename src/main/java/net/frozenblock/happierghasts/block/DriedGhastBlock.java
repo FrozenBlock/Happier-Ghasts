@@ -7,6 +7,7 @@ import net.frozenblock.happierghasts.registry.HGSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -20,6 +21,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -79,6 +81,11 @@ public class DriedGhastBlock extends HorizontalDirectionalBlock implements Simpl
 	}
 
 	@Override
+	protected @NotNull SoundType getSoundType(@NotNull BlockState blockState) {
+		return blockState.getValue(WATERLOGGED) ? HGSounds.DRIED_GHAST_WATER : super.getSoundType(blockState);
+	}
+
+	@Override
 	protected void tick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource) {
 		if (!this.canSurvive(blockState, serverLevel, blockPos)) {
 			serverLevel.destroyBlock(blockPos, true);
@@ -87,7 +94,7 @@ public class DriedGhastBlock extends HorizontalDirectionalBlock implements Simpl
 
 		if (blockState.getValue(WATERLOGGED)) {
 			if (!isAtMaxStage(blockState)) {
-				serverLevel.setBlockAndUpdate(blockPos, blockState.setValue(REHYDRATION_LEVEL, blockState.getValue(REHYDRATION_LEVEL) + 1));
+				serverLevel.setBlockAndUpdate(blockPos, blockState.setValue(REHYDRATION_LEVEL, getRehydrationLevel(blockState) + 1));
 				serverLevel.scheduleTick(blockPos, this, HYDRATION_DELAY);
 				serverLevel.levelEvent(LevelEvent.PARTICLES_EGG_CRACK, blockPos, 0);
 			} else {
@@ -104,7 +111,7 @@ public class DriedGhastBlock extends HorizontalDirectionalBlock implements Simpl
 			}
 		} else {
 			if (!isAtMinStage(blockState)) {
-				serverLevel.setBlockAndUpdate(blockPos, blockState.setValue(REHYDRATION_LEVEL, blockState.getValue(REHYDRATION_LEVEL) - 1));
+				serverLevel.setBlockAndUpdate(blockPos, blockState.setValue(REHYDRATION_LEVEL, getRehydrationLevel(blockState) - 1));
 				serverLevel.scheduleTick(blockPos, this, HYDRATION_DELAY);
 			}
 		}
@@ -113,15 +120,23 @@ public class DriedGhastBlock extends HorizontalDirectionalBlock implements Simpl
 	@Override
 	protected void randomTick(@NotNull BlockState blockState, @NotNull ServerLevel serverLevel, BlockPos blockPos, @NotNull RandomSource randomSource) {
 		if (blockState.getValue(WATERLOGGED)) serverLevel.levelEvent(LevelEvent.PARTICLES_EGG_CRACK, blockPos, 0);
-		serverLevel.playSound(null, blockPos, HGSounds.DRIED_GHAST_AMBIENT, SoundSource.BLOCKS, 0.5F, 0.9F + randomSource.nextFloat() * 0.2F);
+		serverLevel.playSound(null, blockPos, getAmbientSound(blockState), SoundSource.BLOCKS, 0.5F, 0.9F + randomSource.nextFloat() * 0.2F);
 	}
 
-	public static boolean isAtMaxStage(@NotNull BlockState state) {
-		return state.getValue(REHYDRATION_LEVEL) >= 3;
+	public static int getRehydrationLevel(@NotNull BlockState blockState) {
+		return blockState.getValue(REHYDRATION_LEVEL);
 	}
 
-	public static boolean isAtMinStage(@NotNull BlockState state) {
-		return state.getValue(REHYDRATION_LEVEL) <= 0;
+	public static boolean isAtMaxStage(@NotNull BlockState blockState) {
+		return getRehydrationLevel(blockState) >= 3;
+	}
+
+	public static boolean isAtMinStage(@NotNull BlockState blockState) {
+		return getRehydrationLevel(blockState) <= 0;
+	}
+
+	public static SoundEvent getAmbientSound(@NotNull BlockState blockState) {
+		return blockState.getValue(WATERLOGGED) ? HGSounds.DRIED_GHAST_AMBIENT_WATER : HGSounds.DRIED_GHAST_AMBIENT;
 	}
 
 	@Override

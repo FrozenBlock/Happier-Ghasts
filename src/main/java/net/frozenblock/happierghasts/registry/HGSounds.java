@@ -24,6 +24,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.level.block.SoundType;
 import org.jetbrains.annotations.NotNull;
 import java.util.Optional;
 
@@ -44,6 +45,32 @@ public final class HGSounds {
 	public static final SoundEvent GHASTLING_SPAWN = register("entity.ghastling.spawn", Optional.empty());
 
 	public static final SoundEvent DRIED_GHAST_AMBIENT = register("entity.dried_ghast.ambient", Optional.empty());
+	public static final SoundEvent DRIED_GHAST_AMBIENT_WATER = register("entity.dried_ghast.ambient_water", Optional.empty());
+
+	public static final SoundEvent DRIED_GHAST_BREAK = register("block.dried_ghast.break", Optional.empty());
+	public static final SoundEvent DRIED_GHAST_STEP = register("block.dried_ghast.step", Optional.empty());
+	public static final SoundEvent DRIED_GHAST_PLACE = register("block.dried_ghast.place", Optional.empty());
+	public static final SoundEvent DRIED_GHAST_PLACE_WATER = register("block.dried_ghast.place_water", Optional.empty());
+	public static final SoundEvent DRIED_GHAST_HIT = register("block.dried_ghast.hit", Optional.empty());
+	public static final SoundEvent DRIED_GHAST_FALL = register("block.dried_ghast.fall", Optional.empty());
+	public static final SoundType DRIED_GHAST = new SoundType(
+		0.8F,
+		1F,
+		DRIED_GHAST_BREAK,
+		DRIED_GHAST_STEP,
+		DRIED_GHAST_PLACE,
+		DRIED_GHAST_HIT,
+		DRIED_GHAST_FALL
+	);
+	public static final SoundType DRIED_GHAST_WATER = new SoundType(
+		0.8F,
+		1F,
+		DRIED_GHAST_BREAK,
+		DRIED_GHAST_STEP,
+		DRIED_GHAST_PLACE_WATER,
+		DRIED_GHAST_HIT,
+		DRIED_GHAST_FALL
+	);
 
 	private HGSounds() {
 		throw new UnsupportedOperationException("HGSounds contains only static declarations.");

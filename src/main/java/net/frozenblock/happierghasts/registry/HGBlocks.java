@@ -43,7 +43,8 @@ public class HGBlocks {
 			.strength(0.5F)
 			.destroyTime(0.75F)
 			.randomTicks()
-			.noOcclusion(),
+			.noOcclusion()
+			.sound(HGSounds.DRIED_GHAST),
 		new Item.Properties()
 			.rarity(Rarity.UNCOMMON)
 	);

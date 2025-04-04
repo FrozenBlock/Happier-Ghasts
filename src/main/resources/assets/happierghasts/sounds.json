@@ -1,9 +1,34 @@
 {
+  "block.dried_ghast.place": {
+    "sounds": [
+      "minecraft:dig/wood1",
+      "minecraft:dig/wood2",
+      "minecraft:dig/wood3",
+      "minecraft:dig/wood4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.dried_ghast.place_water": {
+    "sounds": [
+      "happierghasts:block/dried_ghast/place_water"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
   "block.dried_ghast.break": {
     "sounds": [
       "happierghasts:block/dried_ghast/break"
     ],
     "subtitle": "subtitles.block.generic.break"
+  },
+  "block.dried_ghast.fall": {
+    "sounds": [
+      "minecraft:step/wood1",
+      "minecraft:step/wood2",
+      "minecraft:step/wood3",
+      "minecraft:step/wood4",
+      "minecraft:step/wood5",
+      "minecraft:step/wood6"
+    ]
   },
   "block.dried_ghast.hit": {
     "sounds": [
@@ -13,11 +38,16 @@
     ],
     "subtitle": "subtitles.block.generic.hit"
   },
-  "block.dried_ghast.place_water": {
+  "block.dried_ghast.step": {
     "sounds": [
-      "happierghasts:block/dried_ghast/place_water"
+      "minecraft:step/wood1",
+      "minecraft:step/wood2",
+      "minecraft:step/wood3",
+      "minecraft:step/wood4",
+      "minecraft:step/wood5",
+      "minecraft:step/wood6"
     ],
-    "subtitle": "subtitles.block.generic.place"
+    "subtitle": "subtitles.block.generic.footsteps"
   },
   "entity.dried_ghast.ambient": {
     "sounds": [

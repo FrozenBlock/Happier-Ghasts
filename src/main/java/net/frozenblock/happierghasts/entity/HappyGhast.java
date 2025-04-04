@@ -306,7 +306,7 @@ public class HappyGhast extends Animal implements FlyingAnimal {
 
 	@Override
 	protected float getSoundVolume() {
-		return 5F;
+		return this.isBaby() ? 3F : 5F;
 	}
 
 	@Override
