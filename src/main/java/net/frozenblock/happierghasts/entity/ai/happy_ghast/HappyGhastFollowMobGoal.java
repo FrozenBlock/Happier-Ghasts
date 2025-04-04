@@ -121,12 +121,13 @@ public class HappyGhastFollowMobGoal extends Goal {
 
 	@Override
 	public void tick() {
+		this.followTicks += 1;
 		double xDistance = this.target.getX() - this.happyGhast.getX();
 		double zDistance = this.target.getZ() - this.happyGhast.getZ();
 		this.happyGhast.setYRot(-((float) Mth.atan2(xDistance, zDistance)) * Mth.RAD_TO_DEG);
 		this.happyGhast.yBodyRot = this.happyGhast.getYRot();
 
-		if (this.happyGhast.distanceToSqr(this.target) <= 49D) {
+		if (this.happyGhast.distanceToSqr(this.target) <= this.happyGhast.getBoundingBox().getSize() * 2D) {
 			this.happyGhast.stopInPlace();
 		} else {
 			this.happyGhast.getMoveControl().setWantedPosition(this.target.getX(), this.target.getY() + this.yOffset, this.target.getZ(), 1D);
