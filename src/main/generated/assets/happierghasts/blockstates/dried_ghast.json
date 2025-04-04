@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "facing=east,rehydration_level=0": {
+      "model": "happierghasts:block/dried_ghast_state_1",
+      "y": 90
+    },
+    "facing=east,rehydration_level=1": {
+      "model": "happierghasts:block/dried_ghast_state_2",
+      "y": 90
+    },
+    "facing=east,rehydration_level=2": {
+      "model": "happierghasts:block/dried_ghast_state_3",
+      "y": 90
+    },
+    "facing=east,rehydration_level=3": {
+      "model": "happierghasts:block/dried_ghast_state_4",
+      "y": 90
+    },
+    "facing=north,rehydration_level=0": {
+      "model": "happierghasts:block/dried_ghast_state_1"
+    },
+    "facing=north,rehydration_level=1": {
+      "model": "happierghasts:block/dried_ghast_state_2"
+    },
+    "facing=north,rehydration_level=2": {
+      "model": "happierghasts:block/dried_ghast_state_3"
+    },
+    "facing=north,rehydration_level=3": {
+      "model": "happierghasts:block/dried_ghast_state_4"
+    },
+    "facing=south,rehydration_level=0": {
+      "model": "happierghasts:block/dried_ghast_state_1",
+      "y": 180
+    },
+    "facing=south,rehydration_level=1": {
+      "model": "happierghasts:block/dried_ghast_state_2",
+      "y": 180
+    },
+    "facing=south,rehydration_level=2": {
+      "model": "happierghasts:block/dried_ghast_state_3",
+      "y": 180
+    },
+    "facing=south,rehydration_level=3": {
+      "model": "happierghasts:block/dried_ghast_state_4",
+      "y": 180
+    },
+    "facing=west,rehydration_level=0": {
+      "model": "happierghasts:block/dried_ghast_state_1",
+      "y": 270
+    },
+    "facing=west,rehydration_level=1": {
+      "model": "happierghasts:block/dried_ghast_state_2",
+      "y": 270
+    },
+    "facing=west,rehydration_level=2": {
+      "model": "happierghasts:block/dried_ghast_state_3",
+      "y": 270
+    },
+    "facing=west,rehydration_level=3": {
+      "model": "happierghasts:block/dried_ghast_state_4",
+      "y": 270
+    }
+  }
+}

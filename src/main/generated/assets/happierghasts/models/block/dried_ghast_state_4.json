@@ -1,0 +1,12 @@
+{
+  "parent": "happierghasts:block/template_dried_ghast",
+  "textures": {
+    "back": "happierghasts:block/dried_ghast_state_4_back",
+    "bottom": "happierghasts:block/dried_ghast_state_4_bottom",
+    "east": "happierghasts:block/dried_ghast_state_4_left",
+    "front": "happierghasts:block/dried_ghast_state_4_front",
+    "tentacle": "happierghasts:block/dried_ghast_state_4_tentacles",
+    "top": "happierghasts:block/dried_ghast_state_4_top",
+    "west": "happierghasts:block/dried_ghast_state_4_right"
+  }
+}

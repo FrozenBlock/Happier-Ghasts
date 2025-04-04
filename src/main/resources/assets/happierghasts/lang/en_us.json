@@ -16,6 +16,8 @@
   "item.happierghasts.white_harness": "White Harness",
   "item.happierghasts.yellow_harness": "Yellow Harness",
 
+  "block.happierghasts.dried_ghast": "Dried Ghast",
+
   "entity.happierghasts.happy_ghast": "Happy Ghast",
   "item.happierghasts.happy_ghast_spawn_egg": "Happy Ghast Spawn Egg"
 }

@@ -1,0 +1,132 @@
+{
+	"parent": "minecraft:block/block",
+	"textures": {
+		"particle": "#front"
+	},
+	"elements": [
+		{
+			"name": "body",
+			"from": [3, 0, 3],
+			"to": [13, 10, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 0, 6]},
+			"faces": {
+				"north": {"uv": [0, 0, 10, 10], "texture": "#front"},
+				"east": {"uv": [0, 0, 10, 10], "texture": "#west"},
+				"south": {"uv": [0, 0, 10, 10], "texture": "#back"},
+				"west": {"uv": [10, 0, 0, 10], "texture": "#east"},
+				"up": {"uv": [0, 0, 10, 10], "texture": "#top"},
+				"down": {"uv": [0, 0, 10, 10], "texture": "#bottom", "cullface": "down"}
+			}
+		},
+		{
+			"name": "tentacle",
+			"from": [0, 0, 5],
+			"to": [3, 1, 7],
+			"rotation": {"angle": 0, "axis": "y", "origin": [1, 0, 5]},
+			"faces": {
+				"north": {"uv": [2, 2, 5, 3], "texture": "#tentacle"},
+				"south": {"uv": [5, 2, 8, 3], "texture": "#tentacle"},
+				"west": {"uv": [0, 2, 2, 3], "texture": "#tentacle", "cullface": "west"},
+				"up": {"uv": [2, 0, 5, 2], "texture": "#tentacle"},
+				"down": {"uv": [5, 0, 8, 2], "texture": "#tentacle", "cullface": "down"}
+			}
+		},
+		{
+			"name": "tentacle",
+			"from": [0, 0, 9],
+			"to": [3, 1, 11],
+			"rotation": {"angle": 0, "axis": "y", "origin": [1, 0, 9]},
+			"faces": {
+				"north": {"uv": [2, 2, 5, 3], "texture": "#tentacle"},
+				"south": {"uv": [5, 2, 8, 3], "texture": "#tentacle"},
+				"west": {"uv": [0, 2, 2, 3], "texture": "#tentacle", "cullface": "west"},
+				"up": {"uv": [2, 0, 5, 2], "texture": "#tentacle"},
+				"down": {"uv": [5, 0, 8, 2], "texture": "#tentacle", "cullface": "down"}
+			}
+		},
+		{
+			"name": "tentacle",
+			"from": [5, 0, 13],
+			"to": [7, 1, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [5, 0, 15]},
+			"faces": {
+				"east": {"uv": [5, 2, 8, 3], "texture": "#tentacle"},
+				"south": {"uv": [0, 2, 2, 3], "texture": "#tentacle", "cullface": "south"},
+				"west": {"uv": [2, 2, 5, 3], "texture": "#tentacle"},
+				"up": {"uv": [2, 0, 5, 2], "rotation": 270, "texture": "#tentacle"},
+				"down": {"uv": [5, 0, 8, 2], "rotation": 90, "texture": "#tentacle", "cullface": "down"}
+			}
+		},
+		{
+			"name": "tentacle",
+			"from": [13, 0, 5],
+			"to": [16, 1, 7],
+			"rotation": {"angle": 0, "axis": "y", "origin": [15, 0, 7]},
+			"faces": {
+				"north": {"uv": [2, 3, 5, 2], "texture": "#tentacle"},
+				"east": {"uv": [0, 2, 2, 3], "texture": "#tentacle", "cullface": "east"},
+				"south": {"uv": [5, 3, 8, 2], "texture": "#tentacle"},
+				"up": {"uv": [2, 2, 5, 0], "rotation": 180, "texture": "#tentacle"},
+				"down": {"uv": [5, 0, 8, 2], "rotation": 180, "texture": "#tentacle", "cullface": "down"}
+			}
+		},
+		{
+			"name": "tentacle",
+			"from": [13, 0, 9],
+			"to": [16, 1, 11],
+			"rotation": {"angle": 0, "axis": "y", "origin": [15, 0, 11]},
+			"faces": {
+				"north": {"uv": [2, 3, 5, 2], "texture": "#tentacle"},
+				"east": {"uv": [0, 2, 2, 3], "texture": "#tentacle", "cullface": "east"},
+				"south": {"uv": [5, 3, 8, 2], "texture": "#tentacle"},
+				"up": {"uv": [2, 2, 5, 0], "rotation": 180, "texture": "#tentacle"},
+				"down": {"uv": [5, 0, 8, 2], "rotation": 180, "texture": "#tentacle", "cullface": "down"}
+			}
+		},
+		{
+			"name": "tentacle",
+			"from": [9, 0, 13],
+			"to": [11, 1, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [9, 0, 15]},
+			"faces": {
+				"east": {"uv": [2, 3, 5, 2], "texture": "#tentacle"},
+				"south": {"uv": [0, 2, 2, 3], "texture": "#tentacle", "cullface": "south"},
+				"west": {"uv": [5, 3, 8, 2], "texture": "#tentacle"},
+				"up": {"uv": [2, 2, 5, 0], "rotation": 270, "texture": "#tentacle"},
+				"down": {"uv": [5, 0, 8, 2], "rotation": 90, "texture": "#tentacle", "cullface": "down"}
+			}
+		}
+	],
+	"display": {
+		"gui": {
+			"rotation": [30, 225, 0],
+			"translation": [0, 2, 0],
+			"scale": [0.8, 0.8, 0.8]
+		},
+    "ground": {
+      "rotation": [ 0, 0, 0 ],
+      "translation": [ 0, 3, 0],
+      "scale":[ 0.25, 0.25, 0.25 ]
+    },
+    "fixed": {
+      "rotation": [ 0, 0, 0 ],
+      "translation": [ 0, 0, 0],
+      "scale":[ 0.64, 0.64, 0.64 ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [ 75, 45, 0 ],
+      "translation": [ 0, 2.5, 0],
+      "scale": [ 0.48, 0.48, 0.48 ]
+    },
+    "firstperson_righthand": {
+      "rotation": [ 0, 45, 0 ],
+      "translation": [ 0, 0, 0 ],
+      "scale": [ 0.512, 0.512, 0.512 ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [ 0, 225, 0 ],
+      "translation": [ 0, 0, 0 ],
+      "scale": [ 0.512, 0.512, 0.512 ]
+    }
+	}
+}

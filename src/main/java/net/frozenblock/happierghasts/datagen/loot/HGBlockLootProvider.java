@@ -16,25 +16,25 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.happierghasts;
+package net.frozenblock.happierghasts.datagen.loot;
 
-import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.frozenblock.happierghasts.registry.HGBlocks;
-import net.frozenblock.happierghasts.registry.HGCreativeInventorySorting;
-import net.frozenblock.happierghasts.registry.HGEntityTypes;
-import net.frozenblock.happierghasts.registry.HGItems;
-import net.frozenblock.happierghasts.registry.HGSounds;
+import net.minecraft.core.HolderLookup;
+import org.jetbrains.annotations.NotNull;
 
-public final class HappierGhasts implements ModInitializer {
+import java.util.concurrent.CompletableFuture;
+
+public final class HGBlockLootProvider extends FabricBlockLootTableProvider {
+
+	public HGBlockLootProvider(@NotNull FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registries) {
+		super(dataOutput, registries);
+	}
 
 	@Override
-	public void onInitialize() {
-		HGEntityTypes.init();
-		HGBlocks.init();
-		HGItems.init();
-		HGSounds.init();
-
-		HGCreativeInventorySorting.init();
+	public void generate() {
+		this.dropSelf(HGBlocks.DRIED_GHAST);
 	}
 
 }

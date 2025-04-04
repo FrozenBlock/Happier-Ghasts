@@ -4,3 +4,4 @@ accessible field net/minecraft/world/entity/ai/goal/TemptGoal speedModifier D
 accessible field net/minecraft/world/entity/ai/goal/TemptGoal px D
 accessible field net/minecraft/world/entity/ai/goal/TemptGoal py D
 accessible field net/minecraft/world/entity/ai/goal/TemptGoal pz D
+accessible field net/minecraft/client/data/models/BlockModelGenerators ROTATION_HORIZONTAL_FACING Lnet/minecraft/client/data/models/blockstates/PropertyDispatch;

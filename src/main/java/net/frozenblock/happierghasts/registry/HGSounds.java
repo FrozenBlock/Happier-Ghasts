@@ -43,6 +43,8 @@ public final class HGSounds {
 	public static final SoundEvent GHASTLING_DEATH = register("entity.ghastling.death", Optional.empty());
 	public static final SoundEvent GHASTLING_SPAWN = register("entity.ghastling.spawn", Optional.empty());
 
+	public static final SoundEvent DRIED_GHAST_AMBIENT = register("entity.dried_ghast.ambient", Optional.empty());
+
 	private HGSounds() {
 		throw new UnsupportedOperationException("HGSounds contains only static declarations.");
 	}
