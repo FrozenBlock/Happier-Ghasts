@@ -20,6 +20,7 @@ package net.frozenblock.happierghasts.entity.ai.happy_ghast;
 
 import net.frozenblock.happierghasts.entity.HappyGhast;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
 
 import java.util.EnumSet;
@@ -36,8 +37,12 @@ public class HappyGhastFreezeGoal extends Goal {
 	public boolean canUse() {
 		if (this.happyGhast.isSaddled()) {
 			AABB happyGhastBox = this.happyGhast.getBoundingBox();
-			happyGhastBox = happyGhastBox.move(0D, happyGhastBox.getYsize(), 0D);
-			return !this.happyGhast.level().getEntities(this.happyGhast, happyGhastBox).isEmpty();
+			happyGhastBox = happyGhastBox.move(0D, happyGhastBox.getYsize(), 0D).inflate(1D);
+			return !this.happyGhast.level().getEntities(
+				this.happyGhast,
+				happyGhastBox,
+				entity -> entity instanceof Player && entity.isAlive() && !entity.isSpectator()
+			).isEmpty();
 		}
 		return false;
 	}
@@ -49,6 +54,6 @@ public class HappyGhastFreezeGoal extends Goal {
 
 	@Override
 	public void tick() {
-		this.happyGhast.stopHappyGhastNavigation();
+		this.happyGhast.stopInPlace();
 	}
 }

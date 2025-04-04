@@ -53,7 +53,7 @@ public class HappyGhastModel extends EntityModel<HappyGhastRenderState> {
 		return "tentacle" + i;
 	}
 
-	public static @NotNull LayerDefinition createBabyBodyLayer() {
+	public static @NotNull LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
@@ -123,8 +123,12 @@ public class HappyGhastModel extends EntityModel<HappyGhastRenderState> {
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
 
-	public static @NotNull LayerDefinition createBodyLayer() {
-		return createBabyBodyLayer().apply(MeshTransformer.scaling(4.5F));
+	public static @NotNull LayerDefinition createAdultBodyLayer() {
+		return createBodyLayer().apply(MeshTransformer.scaling(4.5F));
+	}
+
+	public static @NotNull LayerDefinition createBabyBodyLayer() {
+		return createBodyLayer().apply(MeshTransformer.scaling(1.5F));
 	}
 
 	@Override

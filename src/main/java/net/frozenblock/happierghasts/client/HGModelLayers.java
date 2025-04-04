@@ -39,10 +39,10 @@ public class HGModelLayers {
 
 	public static void init() {
 		EntityRendererRegistry.register(HGEntityTypes.HAPPY_GHAST, HappyGhastRenderer::new);
-		EntityModelLayerRegistry.registerModelLayer(HAPPY_GHAST, HappyGhastModel::createBodyLayer);
-		EntityModelLayerRegistry.registerModelLayer(HAPPY_GHAST_HARNESS, HappyGhastHarnessModel::createBodyLayer);
+		EntityModelLayerRegistry.registerModelLayer(HAPPY_GHAST, HappyGhastModel::createAdultBodyLayer);
+		EntityModelLayerRegistry.registerModelLayer(HAPPY_GHAST_HARNESS, HappyGhastHarnessModel::createAdultBodyLayer);
 
-		EntityModelLayerRegistry.registerModelLayer(GHASTLING, HappyGhastModel::createBodyLayer);
+		EntityModelLayerRegistry.registerModelLayer(GHASTLING, HappyGhastModel::createBabyBodyLayer);
 		EntityModelLayerRegistry.registerModelLayer(GHASTLING_HARNESS, HappyGhastHarnessModel::createBabyBodyLayer);
 	}
 }

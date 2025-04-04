@@ -29,6 +29,20 @@ import java.util.Optional;
 
 public final class HGSounds {
 
+	public static final SoundEvent HAPPY_GHAST_AMBIENT = register("entity.happy_ghast.ambient", Optional.empty());
+	public static final SoundEvent HAPPY_GHAST_HURT = register("entity.happy_ghast.hurt", Optional.empty());
+	public static final SoundEvent HAPPY_GHAST_DEATH = register("entity.happy_ghast.death", Optional.empty());
+	public static final SoundEvent HAPPY_GHAST_GOGGLES_DOWN = register("entity.happy_ghast.goggles_down", Optional.empty());
+	public static final SoundEvent HAPPY_GHAST_GOGGLES_UP = register("entity.happy_ghast.goggles_up", Optional.empty());
+	public static final Holder<SoundEvent> HAPPY_GHAST_HARNESS_EQUIP = registerForHolder("entity.happy_ghast.harness_equip");
+	public static final SoundEvent HAPPY_GHAST_HARNESS_UNEQUIP = register("entity.happy_ghast.harness_unequip", Optional.empty());
+	public static final SoundEvent HAPPY_GHAST_RIDE = register("entity.happy_ghast.ride", Optional.empty());
+
+	public static final SoundEvent GHASTLING_AMBIENT = register("entity.ghastling.ambient", Optional.empty());
+	public static final SoundEvent GHASTLING_HURT = register("entity.ghastling.hurt", Optional.empty());
+	public static final SoundEvent GHASTLING_DEATH = register("entity.ghastling.death", Optional.empty());
+	public static final SoundEvent GHASTLING_SPAWN = register("entity.ghastling.spawn", Optional.empty());
+
 	private HGSounds() {
 		throw new UnsupportedOperationException("HGSounds contains only static declarations.");
 	}

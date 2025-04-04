@@ -24,26 +24,29 @@ import net.frozenblock.happierghasts.entity.ai.happy_ghast.HappyGhastMoveControl
 import net.frozenblock.happierghasts.entity.ai.happy_ghast.HappyGhastRandomFloatAroundGoal;
 import net.frozenblock.happierghasts.entity.ai.happy_ghast.HappyGhastReturnToHomeGoal;
 import net.frozenblock.happierghasts.entity.ai.happy_ghast.HappyGhastTemptGoal;
+import net.frozenblock.happierghasts.registry.HGEntityTypes;
+import net.frozenblock.happierghasts.registry.HGSounds;
+import net.frozenblock.happierghasts.tag.HGItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.player.Player;
@@ -72,17 +75,41 @@ public class HappyGhast extends Animal implements FlyingAnimal {
 
 	@Override
 	protected void registerGoals() {
-		this.goalSelector.addGoal(1, new HappyGhastFreezeGoal(this));
-		this.goalSelector.addGoal(2, new HappyGhastTemptGoal(this, 1.25D, itemStack -> itemStack.is(Items.SNOWBALL), happyGhast -> true));
-		this.goalSelector.addGoal(3, new HappyGhastReturnToHomeGoal(this));
-		this.goalSelector.addGoal(5, new HappyGhastRandomFloatAroundGoal(this));
-		this.goalSelector.addGoal(6, new HappyGhastLookGoal(this));
+		this.clearAndSetGoalsForAge();
 	}
 
-	public void stopHappyGhastNavigation() {
-		this.getNavigation().stop();
+	public void clearAndSetGoalsForAge() {
+		this.goalSelector.removeAllGoals(goal -> true);
+		if (this.isBaby()) {
+			this.goalSelector.addGoal(1, new HappyGhastTemptGoal(this, 1.25D, itemStack -> itemStack.is(Items.SNOWBALL), happyGhast -> true));
+			this.goalSelector.addGoal(2, new HappyGhastReturnToHomeGoal(this));
+			this.goalSelector.addGoal(4, new HappyGhastRandomFloatAroundGoal(this));
+			this.goalSelector.addGoal(5, new HappyGhastLookGoal(this));
+		} else {
+			this.goalSelector.addGoal(1, new HappyGhastFreezeGoal(this));
+			this.goalSelector.addGoal(2, new HappyGhastTemptGoal(this, 1.25D, itemStack -> itemStack.is(Items.SNOWBALL), happyGhast -> true));
+			this.goalSelector.addGoal(2, new HappyGhastTemptGoal(
+				this,
+				1.25D,
+				itemStack -> {
+					Equippable equippable = itemStack.getComponents().get(DataComponents.EQUIPPABLE);
+					if (equippable != null) return equippable.canBeEquippedBy(this.getType());
+					return false;
+				},
+				happyGhast -> !happyGhast.isSaddled()
+				)
+			);
+			this.goalSelector.addGoal(3, new HappyGhastReturnToHomeGoal(this));
+			this.goalSelector.addGoal(5, new HappyGhastRandomFloatAroundGoal(this));
+			this.goalSelector.addGoal(6, new HappyGhastLookGoal(this));
+		}
+	}
+
+	@Override
+	public void stopInPlace() {
+		super.stopInPlace();
 		this.getMoveControl().setWantedPosition(this.getX(), this.getY(), this.getZ(), 0D);
-		this.setZza(0F);
+		this.reapplyPosition();
 	}
 
 	@Override
@@ -92,12 +119,7 @@ public class HappyGhast extends Animal implements FlyingAnimal {
 
 	@Override
 	public @Nullable AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
-		return null;
-	}
-
-	@Override
-	protected void defineSynchedData(SynchedEntityData.Builder builder) {
-		super.defineSynchedData(builder);
+		return HGEntityTypes.HAPPY_GHAST.create(serverLevel, EntitySpawnReason.BREEDING);
 	}
 
 	public static AttributeSupplier.@NotNull Builder createAttributes() {
@@ -119,24 +141,30 @@ public class HappyGhast extends Animal implements FlyingAnimal {
 	}
 
 	@Override
-	public LivingEntity getControllingPassenger() {
-		return this.isSaddled() && this.getFirstPassenger() instanceof Player player ? player : super.getControllingPassenger();
-	}
-
-	@Override
-	protected void removePassenger(Entity entity) {
-		super.removePassenger(entity);
-		if (!this.hasControllingPassenger()) this.setZza(0F);
-	}
-
-	@Override
 	public @NotNull InteractionResult mobInteract(Player player, InteractionHand interactionHand) {
 		this.updateHomePosition();
-		if (this.isSaddled() && !this.isVehicle() && !player.isSecondaryUseActive()) {
-			if (this.getPassengers().size() < 4 && !this.isBaby()) {
-				this.doPlayerRide(player);
+		if (this.isSaddled()) {
+			if (!player.isSecondaryUseActive()) {
+				if (this.getPassengers().size() < 4 && !this.isBaby()) {
+					this.doPlayerRide(player);
+					return InteractionResult.SUCCESS;
+				}
+			} else if (player.getItemInHand(interactionHand).getItem() == Items.SHEARS) {
+				this.level().playSeededSound(
+					null,
+					this.getX(),
+					this.getY(),
+					this.getZ(),
+					HGSounds.HAPPY_GHAST_HARNESS_UNEQUIP,
+					this.getSoundSource(),
+					1F,
+					1F,
+					this.random.nextLong()
+				);
+				this.drop(this.getItemBySlot(EquipmentSlot.SADDLE), true, false);
+				return InteractionResult.SUCCESS;
 			}
-			return InteractionResult.SUCCESS;
+			return super.mobInteract(player, interactionHand);
 		} else {
 			InteractionResult interactionResult = super.mobInteract(player, interactionHand);
 			if (!interactionResult.consumesAction()) {
@@ -153,7 +181,7 @@ public class HappyGhast extends Animal implements FlyingAnimal {
 	@Override
 	public @NotNull Vec3 getDismountLocationForPassenger(LivingEntity livingEntity) {
 		Vec3 dismountLocation = super.getDismountLocationForPassenger(livingEntity);
-		return dismountLocation.add(0D, 0.1D, 0D);
+		return dismountLocation.add(0D, 0.15D, 0D);
 	}
 
 	protected void doPlayerRide(Player player) {
@@ -176,7 +204,7 @@ public class HappyGhast extends Animal implements FlyingAnimal {
 
 	@Override
 	protected @NotNull Holder<SoundEvent> getEquipSound(EquipmentSlot equipmentSlot, ItemStack itemStack, Equippable equippable) {
-		return equipmentSlot == EquipmentSlot.SADDLE ? SoundEvents.PIG_SADDLE : super.getEquipSound(equipmentSlot, itemStack, equippable);
+		return equipmentSlot == EquipmentSlot.SADDLE ? HGSounds.HAPPY_GHAST_HARNESS_EQUIP : super.getEquipSound(equipmentSlot, itemStack, equippable);
 	}
 
 	@Override
@@ -197,9 +225,52 @@ public class HappyGhast extends Animal implements FlyingAnimal {
 			horizontalMovement = 1F;
 		} else if (speed != 0F) {
 			horizontalMovement = (float) player.getLookAngle().y();
+			if (horizontalMovement > 0F) horizontalMovement *= 0.5F;
 		}
 
 		return new Vec3(movement, Math.clamp(horizontalMovement * 2F, -1F, 1F), speed);
+	}
+
+	@Override
+	protected void addPassenger(Entity entity) {
+		super.addPassenger(entity);
+		if (this.getControllingPassenger() == entity) {
+			this.level().playSeededSound(
+				null,
+				this.getX(),
+				this.getY(),
+				this.getZ(),
+				HGSounds.HAPPY_GHAST_GOGGLES_DOWN,
+				this.getSoundSource(),
+				1F,
+				1F,
+				this.random.nextLong()
+			);
+		}
+	}
+
+	@Override
+	public LivingEntity getControllingPassenger() {
+		return this.isSaddled() && this.getFirstPassenger() instanceof Player player ? player : super.getControllingPassenger();
+	}
+
+	@Override
+	protected void removePassenger(Entity entity) {
+		super.removePassenger(entity);
+		if (!this.hasControllingPassenger()) {
+			this.stopInPlace();
+			this.level().playSeededSound(
+				null,
+				this.getX(),
+				this.getY(),
+				this.getZ(),
+				HGSounds.HAPPY_GHAST_GOGGLES_UP,
+				this.getSoundSource(),
+				1F,
+				1F,
+				this.random.nextLong()
+			);
+		}
 	}
 
 	public boolean hasHomePosition() {
@@ -222,22 +293,27 @@ public class HappyGhast extends Animal implements FlyingAnimal {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return SoundEvents.GHAST_AMBIENT;
+		return this.isBaby() ? HGSounds.GHASTLING_AMBIENT : HGSounds.HAPPY_GHAST_AMBIENT;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSource) {
-		return SoundEvents.GHAST_HURT;
+		return this.isBaby() ? HGSounds.GHASTLING_HURT : HGSounds.HAPPY_GHAST_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return SoundEvents.GHAST_DEATH;
+		return this.isBaby() ? HGSounds.GHASTLING_DEATH : HGSounds.HAPPY_GHAST_DEATH;
 	}
 
 	@Override
 	protected float getSoundVolume() {
-		return 0.25F;
+		return 5F;
+	}
+
+	@Override
+	public int getAmbientSoundInterval() {
+		return super.getAmbientSoundInterval() * 2;
 	}
 
 	@Override
@@ -253,12 +329,32 @@ public class HappyGhast extends Animal implements FlyingAnimal {
 	}
 
 	@Override
-	public boolean isFood(ItemStack itemStack) {
+	public boolean isFood(@NotNull ItemStack itemStack) {
+		return itemStack.is(HGItemTags.HAPPY_GHAST_FOOD);
+	}
+
+	@Override
+	protected void playEatingSound() {
+		// TODO
+	}
+
+	@Override
+	public boolean canFallInLove() {
 		return false;
 	}
 
 	@Override
 	protected void checkFallDamage(double d, boolean bl, BlockState blockState, BlockPos blockPos) {
+	}
+
+	@Override
+	public float getAgeScale() {
+		return this.isBaby() ? 0.3F : 1F;
+	}
+
+	@Override
+	public float getVoicePitch() {
+		return (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1F;
 	}
 
 	@Override

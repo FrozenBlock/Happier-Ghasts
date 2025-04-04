@@ -27,11 +27,16 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.equipment.Equippable;
 import org.jetbrains.annotations.NotNull;
 import java.util.function.Function;
 
 public class HGItems {
+	public static final Item HAPPY_GHAST_SPAWN_EGG = register("happy_ghast_spawn_egg",
+		properties -> new SpawnEggItem(HGEntityTypes.HAPPY_GHAST, properties),
+		new Item.Properties()
+	);
 
 	public static final Item BLACK_HARNESS = register("black_harness",
 		Item::new,

@@ -1,0 +1,143 @@
+{
+  "block.dried_ghast.break": {
+    "sounds": [
+      "happierghasts:block/dried_ghast/break"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.dried_ghast.hit": {
+    "sounds": [
+      "happierghasts:block/dried_ghast/hit1",
+      "happierghasts:block/dried_ghast/hit2",
+      "happierghasts:block/dried_ghast/hit3"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.dried_ghast.place_water": {
+    "sounds": [
+      "happierghasts:block/dried_ghast/place_water"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "entity.dried_ghast.ambient": {
+    "sounds": [
+      "happierghasts:block/dried_ghast/ambient1",
+      "happierghasts:block/dried_ghast/ambient2"
+    ],
+    "subtitle": "subtitles.entity.dried_ghast.ambient"
+  },
+  "entity.dried_ghast.ambient_water": {
+    "sounds": [
+      "happierghasts:block/dried_ghast/ambient_water1",
+      "happierghasts:block/dried_ghast/ambient_water2"
+    ],
+    "subtitle": "subtitles.entity.dried_ghast.ambient_water"
+  },
+  "entity.dried_ghast.transition": {
+    "sounds": [
+      "happierghasts:block/dried_ghast/transition"
+    ],
+    "subtitle": "subtitles.entity.dried_ghast.transition"
+  },
+
+  "entity.happy_ghast.ambient": {
+    "sounds": [
+      "happierghasts:mob/happy_ghast/ambient1",
+      "happierghasts:mob/happy_ghast/ambient2",
+      "happierghasts:mob/happy_ghast/ambient3",
+      "happierghasts:mob/happy_ghast/ambient4",
+      "happierghasts:mob/happy_ghast/ambient5",
+      "happierghasts:mob/happy_ghast/ambient6",
+      "happierghasts:mob/happy_ghast/ambient7",
+      "happierghasts:mob/happy_ghast/ambient8",
+      "happierghasts:mob/happy_ghast/ambient9",
+      "happierghasts:mob/happy_ghast/ambient10",
+      "happierghasts:mob/happy_ghast/ambient11",
+      "happierghasts:mob/happy_ghast/ambient12",
+      "happierghasts:mob/happy_ghast/ambient13",
+      "happierghasts:mob/happy_ghast/ambient14"
+    ],
+    "subtitle": "subtitles.entity.happy_ghast.ambient"
+  },
+  "entity.happy_ghast.hurt": {
+    "sounds": [
+      "happierghasts:mob/happy_ghast/hurt1",
+      "happierghasts:mob/happy_ghast/hurt2",
+      "happierghasts:mob/happy_ghast/hurt3",
+      "happierghasts:mob/happy_ghast/hurt4",
+      "happierghasts:mob/happy_ghast/hurt5",
+      "happierghasts:mob/happy_ghast/hurt6"
+    ],
+    "subtitle": "subtitles.entity.happy_ghast.hurt"
+  },
+  "entity.happy_ghast.death": {
+    "sounds": [
+      "happierghasts:mob/happy_ghast/death"
+    ],
+    "subtitle": "subtitles.entity.happy_ghast.death"
+  },
+  "entity.happy_ghast.goggles_down": {
+    "sounds": [
+      "happierghasts:mob/happy_ghast/goggles_down"
+    ],
+    "subtitle": "subtitles.entity.happy_ghast.goggles_down"
+  },
+  "entity.happy_ghast.goggles_up": {
+    "sounds": [
+      "happierghasts:mob/happy_ghast/goggles_up"
+    ],
+    "subtitle": "subtitles.entity.happy_ghast.goggles_up"
+  },
+  "entity.happy_ghast.harness_equip": {
+    "sounds": [
+      "happierghasts:mob/happy_ghast/harness_equip"
+    ],
+    "subtitle": "subtitles.entity.happy_ghast.harness_equip"
+  },
+  "entity.happy_ghast.harness_unequip": {
+    "sounds": [
+      "happierghasts:mob/happy_ghast/harness_unequip"
+    ],
+    "subtitle": "subtitles.entity.happy_ghast.harness_unequip"
+  },
+  "entity.happy_ghast.ride": {
+    "sounds": [
+      "happierghasts:mob/happy_ghast/ride"
+    ]
+  },
+
+  "entity.ghastling.ambient": {
+    "sounds": [
+      "happierghasts:mob/ghastling/ambient1",
+      "happierghasts:mob/ghastling/ambient2",
+      "happierghasts:mob/ghastling/ambient3",
+      "happierghasts:mob/ghastling/ambient4",
+      "happierghasts:mob/ghastling/ambient5",
+      "happierghasts:mob/ghastling/ambient6",
+      "happierghasts:mob/ghastling/ambient7"
+    ],
+    "subtitle": "subtitles.entity.ghastling.ambient"
+  },
+  "entity.ghastling.hurt": {
+    "sounds": [
+      "happierghasts:mob/ghastling/hurt1",
+      "happierghasts:mob/ghastling/hurt2",
+      "happierghasts:mob/ghastling/hurt3",
+      "happierghasts:mob/ghastling/hurt4",
+      "happierghasts:mob/ghastling/hurt5"
+    ],
+    "subtitle": "subtitles.entity.ghastling.hurt"
+  },
+  "entity.ghastling.death": {
+    "sounds": [
+      "happierghasts:mob/ghastling/death"
+    ],
+    "subtitle": "subtitles.entity.ghastling.death"
+  },
+  "entity.ghastling.spawn": {
+    "sounds": [
+      "happierghasts:mob/ghastling/spawn"
+    ],
+    "subtitle": "subtitles.entity.ghastling.spawn"
+  }
+}

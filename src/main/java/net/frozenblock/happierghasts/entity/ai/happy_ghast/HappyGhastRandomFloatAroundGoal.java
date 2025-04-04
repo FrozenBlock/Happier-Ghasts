@@ -57,7 +57,7 @@ public class HappyGhastRandomFloatAroundGoal extends Goal {
 
 	@Override
 	public void start() {
-		int distance = this.happyGhast.isSaddled() ? 8 : 16;
+		int distance = this.happyGhast.isBaby() ? 4 : this.happyGhast.isSaddled() ? 8 : 16;
 		RandomSource randomSource = this.happyGhast.getRandom();
 		double d = this.happyGhast.getX() + (randomSource.nextFloat() * 2F - 1F) * distance;
 		double e = this.happyGhast.getY() + (randomSource.nextFloat() * 2F - 1F) * distance;

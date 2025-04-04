@@ -42,7 +42,7 @@ public class HappyGhastMoveControl extends MoveControl {
 				double d = vec3.length();
 				vec3 = vec3.normalize();
 				if (this.canReach(vec3, Mth.ceil(d))) {
-					this.happyGhast.setDeltaMovement(this.happyGhast.getDeltaMovement().add(vec3.scale(0.1)));
+					this.happyGhast.setDeltaMovement(this.happyGhast.getDeltaMovement().add(vec3.scale(0.1D)));
 				} else {
 					this.operation = Operation.WAIT;
 				}
@@ -52,14 +52,10 @@ public class HappyGhastMoveControl extends MoveControl {
 
 	private boolean canReach(Vec3 vec3, int i) {
 		AABB aABB = this.happyGhast.getBoundingBox();
-
 		for (int j = 1; j < i; j++) {
 			aABB = aABB.move(vec3);
-			if (!this.happyGhast.level().noCollision(this.happyGhast, aABB)) {
-				return false;
-			}
+			if (!this.happyGhast.level().noCollision(this.happyGhast, aABB)) return false;
 		}
-
 		return true;
 	}
 }

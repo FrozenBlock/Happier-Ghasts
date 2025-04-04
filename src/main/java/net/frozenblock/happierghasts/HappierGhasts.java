@@ -19,6 +19,7 @@
 package net.frozenblock.happierghasts;
 
 import net.fabricmc.api.ModInitializer;
+import net.frozenblock.happierghasts.registry.HGCreativeInventorySorting;
 import net.frozenblock.happierghasts.registry.HGEntityTypes;
 import net.frozenblock.happierghasts.registry.HGItems;
 import net.frozenblock.happierghasts.registry.HGSounds;
@@ -30,6 +31,8 @@ public final class HappierGhasts implements ModInitializer {
 		HGEntityTypes.init();
 		HGItems.init();
 		HGSounds.init();
+
+		HGCreativeInventorySorting.init();
 	}
 
 }

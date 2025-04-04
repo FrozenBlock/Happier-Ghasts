@@ -54,7 +54,7 @@ public class HappyGhastTemptGoal extends TemptGoal {
 		this.happyGhast.yBodyRot = this.happyGhast.getYRot();
 
 		if (this.mob.distanceToSqr(this.player) <= 49D) {
-			this.happyGhast.stopHappyGhastNavigation();
+			this.happyGhast.stopInPlace();
 		} else {
 			this.happyGhast.getMoveControl().setWantedPosition(this.player.getX(), this.player.getY() + 2D, this.player.getZ(), this.speedModifier);
 		}

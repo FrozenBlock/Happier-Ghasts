@@ -52,6 +52,7 @@ public class HappyGhastReturnToHomeGoal extends Goal {
 	}
 
 	public double getHomeDistance() {
+		if (this.happyGhast.isBaby()) return 16D;
 		return this.happyGhast.isSaddled() ? 32D : 64D;
 	}
 

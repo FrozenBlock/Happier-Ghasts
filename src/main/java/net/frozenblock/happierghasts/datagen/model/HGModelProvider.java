@@ -41,6 +41,8 @@ public class HGModelProvider extends FabricModelProvider {
 
 	@Override
 	public void generateItemModels(@NotNull ItemModelGenerators generator) {
+		generator.generateFlatItem(HGItems.HAPPY_GHAST_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
+
 		generator.generateFlatItem(HGItems.BLACK_HARNESS, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(HGItems.BLUE_HARNESS, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(HGItems.BROWN_HARNESS, ModelTemplates.FLAT_ITEM);
