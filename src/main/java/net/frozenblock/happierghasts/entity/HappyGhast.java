@@ -32,7 +32,6 @@ import net.minecraft.core.GlobalPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
@@ -109,7 +108,6 @@ public class HappyGhast extends Animal implements FlyingAnimal {
 	public void stopInPlace() {
 		super.stopInPlace();
 		this.getMoveControl().setWantedPosition(this.getX(), this.getY(), this.getZ(), 0D);
-		this.reapplyPosition();
 	}
 
 	@Override
@@ -350,6 +348,15 @@ public class HappyGhast extends Animal implements FlyingAnimal {
 	@Override
 	public float getAgeScale() {
 		return this.isBaby() ? 0.3F : 1F;
+	}
+
+	@Override
+	public void setAge(int i) {
+		boolean wasBaby = this.isBaby();
+		super.setAge(i);
+		if (wasBaby != this.isBaby()) {
+			this.clearAndSetGoalsForAge();
+		}
 	}
 
 	@Override
