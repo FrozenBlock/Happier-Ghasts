@@ -66,6 +66,7 @@ public class HappyGhastFollowMobGoal extends Goal {
 			this.followCooldown--;
 			return false;
 		} else {
+			if (this.isRunning && this.target != null && this.target.level() == this.happyGhast.level()) return true;
 			LivingEntity owner = this.happyGhast.getOwner();
 			if (owner != null && owner.level() == this.happyGhast.level() && this.target != owner) {
 				if (owner.distanceTo(this.happyGhast) <= this.getSearchRange(true)) {
@@ -127,7 +128,7 @@ public class HappyGhastFollowMobGoal extends Goal {
 		this.happyGhast.setYRot(-((float) Mth.atan2(xDistance, zDistance)) * Mth.RAD_TO_DEG);
 		this.happyGhast.yBodyRot = this.happyGhast.getYRot();
 
-		if (this.happyGhast.distanceToSqr(this.target) <= this.happyGhast.getBoundingBox().getSize() * 2D) {
+		if (this.happyGhast.distanceToSqr(this.target) <= Mth.square(this.happyGhast.getBoundingBox().getSize() * 2D)) {
 			this.happyGhast.stopInPlace();
 		} else {
 			this.happyGhast.getMoveControl().setWantedPosition(this.target.getX(), this.target.getY() + this.yOffset, this.target.getZ(), 1D);
