@@ -39,7 +39,6 @@ public class HappyGhastFollowMobGoal extends Goal {
 	private final TargetingConditions targetingConditions;
 	private final HappyGhast happyGhast;
 	private final double yOffset;
-	private final Predicate<Entity> canFollow;
 
 	public double ex;
 	public double ey;
@@ -53,7 +52,6 @@ public class HappyGhastFollowMobGoal extends Goal {
 	public HappyGhastFollowMobGoal(HappyGhast happyGhast, double yOffset, Predicate<Entity> canFollow) {
 		this.happyGhast = happyGhast;
 		this.yOffset = yOffset;
-		this.canFollow = canFollow;
 		this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
 		this.playerTargetingConditions = FOLLOW_TARGETING_PLAYER.copy().selector((livingEntity, serverLevel) -> canFollow.test(livingEntity) && this.target != livingEntity);
 		this.targetingConditions = FOLLOW_TARGETING.copy().selector((livingEntity, serverLevel) -> canFollow.test(livingEntity) && this.target != livingEntity);
