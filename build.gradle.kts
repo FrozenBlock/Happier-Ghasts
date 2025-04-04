@@ -45,7 +45,6 @@ val archives_base_name: String by project
 
 val fabric_api_version: String by project
 val frozenlib_version: String by project
-val wilderwild_version: String by project
 
 val modmenu_version: String by project
 val cloth_config_version: String by project
@@ -62,7 +61,6 @@ version = getModVersion()
 group = maven_group
 
 val local_frozenlib = findProject(":FrozenLib") != null
-val local_wilderwild = findProject(":WilderWild") != null
 val release = findProperty("releaseType") == "stable"
 
 val datagen by sourceSets.registering {
@@ -195,12 +193,6 @@ dependencies {
     } else
         modApi("maven.modrinth:frozenlib:$frozenlib_version")
 
-    // Wilder Wild
-    if (local_wilderwild)
-        modImplementation(project(":WilderWild", configuration = "namedElements"))
-    else
-        modImplementation("maven.modrinth:wilder-wild:$wilderwild_version")
-
     // Mod Menu
     modCompileOnly("com.terraformersmc:modmenu:$modmenu_version")
 
@@ -228,8 +220,7 @@ tasks {
             "minecraft_version" to "~1.21-",//minecraft_version,
 
             "fabric_api_version" to ">=$fabric_api_version",
-            "frozenlib_version" to ">=${frozenlib_version.split('-').firstOrNull()}-",
-            "wilderwild_version" to ">=${wilderwild_version.split('-').firstOrNull()}-"
+            "frozenlib_version" to ">=${frozenlib_version.split('-').firstOrNull()}-"
         )
 
         properties.forEach { (a, b) -> inputs.property(a, b) }
@@ -336,7 +327,7 @@ publishing {
 
     val publishGroup = rootProject.group.toString().trim(' ')
 
-    val hash = if (sgrgit.branch != null && grgit.branch.current() != null) grgit.branch.current().fullName else ""
+    val hash = if (grgit.branch != null && grgit.branch.current() != null) grgit.branch.current().fullName else ""
 
     publications {
         var publish = true

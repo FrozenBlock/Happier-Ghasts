@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "id": "${mod_id}",
   "version": "${version}",
-  "name": "Springier Life",
-  "description": "WW addon!",
+  "name": "Happier Ghasts",
+  "description": "DSAJHBVFVBDSYU!",
   "authors": [
     "Lunade"
   ],
@@ -13,23 +13,25 @@
     "issues": "https://github.com/FrozenBlock/WilderWild/issues"
   },
   "license": "GPL-3.0",
-  "icon": "assets/springierlife/icon.png",
+  "icon": "assets/happierghasts/icon.png",
   "environment": "*",
   "entrypoints": {
+    "main": [
+      "net.frozenblock.happierghasts.HappierGhasts"
+    ],
     "client": [
-      "net.frozenblock.springierlife.SpringierLifeClient"
+      "net.frozenblock.happierghasts.HappierGhastsClient"
     ],
     "fabric-datagen": [
-      "net.frozenblock.springierlife.datagen.SLDataGenerator"
+      "net.frozenblock.happierghasts.datagen.HGDataGenerator"
     ]
   },
   "mixins": [
-    "springierlife.mixins.json"
+    "happierghasts.mixins.json"
   ],
-  "accessWidener": "springierlife.accesswidener",
+  "accessWidener": "happierghasts.accesswidener",
   "depends": {
     "frozenlib": "${frozenlib_version}",
-    "wilderwild": "${wilderwild_version}",
     "fabric-api": "*",
     "minecraft": "${minecraft_version}",
     "java": ">=21"
@@ -54,9 +56,6 @@
     },
     "frozenlib_registry": {
       "mod_protocol": $protocol_version
-    },
-    "lithium:options": {
-      "mixin.world.raycast": false
     }
   }
 }
