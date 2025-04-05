@@ -39,6 +39,8 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityReference;
@@ -50,6 +52,7 @@ import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.OwnableEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.player.Player;
@@ -58,7 +61,9 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -88,6 +93,8 @@ public class HappyGhast extends Animal implements FlyingAnimal, OwnableEntity {
 			goal.stop();
 			return true;
 		});
+
+		this.goalSelector.addGoal(0, new FloatGoal(this));
 
 		if (this.isBaby()) {
 			this.goalSelector.addGoal(1, new HappyGhastTemptGoal(this, 1.25D, itemStack -> itemStack.is(Items.SNOWBALL), happyGhast -> true));
@@ -179,7 +186,7 @@ public class HappyGhast extends Animal implements FlyingAnimal, OwnableEntity {
 					1F,
 					this.random.nextLong()
 				);
-				this.drop(this.getItemBySlot(EquipmentSlot.SADDLE), true, false);
+				this.drop(this.getItemBySlot(EquipmentSlot.SADDLE).copyAndClear(), true, false);
 				return InteractionResult.SUCCESS;
 			}
 			return super.mobInteract(player, interactionHand);
@@ -199,7 +206,7 @@ public class HappyGhast extends Animal implements FlyingAnimal, OwnableEntity {
 	@Override
 	public @NotNull Vec3 getDismountLocationForPassenger(LivingEntity livingEntity) {
 		Vec3 dismountLocation = super.getDismountLocationForPassenger(livingEntity);
-		return dismountLocation.add(0D, 0.15D, 0D);
+		return dismountLocation.add(0D, 0.2D, 0D);
 	}
 
 	protected void doPlayerRide(Player player) {
@@ -307,6 +314,40 @@ public class HappyGhast extends Animal implements FlyingAnimal, OwnableEntity {
 	public void tick() {
 		super.tick();
 		if (this.hasControllingPassenger()) this.updateHomePosition();
+	}
+
+	@Override
+	public void aiStep() {
+		super.aiStep();
+		if (this.level() instanceof ServerLevel && this.isAlive()) {
+			if (this.deathTime == 0) {
+				if (this.level().dimension() == Level.OVERWORLD) {
+					if (this.getBoundingBox().contains(this.getX(), 195D, this.getZ()) || this.isRainingOrSnowingAt()) {
+						if (this.getActiveEffectsMap().get(MobEffects.REGENERATION) == null) {
+							this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 100, 0));
+						}
+					}
+				}
+				if (this.random.nextInt(900) == 0) {
+					this.heal(1F);
+				}
+			}
+		}
+	}
+
+	public boolean isRainingOrSnowingAt() {
+		Level level = this.level();
+		BlockPos blockPos = this.blockPosition();
+		if (!level.isRaining()) {
+			return false;
+		} else if (!level.canSeeSky(blockPos)) {
+			return false;
+		} else if (level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, blockPos).getY() > blockPos.getY()) {
+			return false;
+		} else {
+			Biome biome = level.getBiome(blockPos).value();
+			return biome.getPrecipitationAt(blockPos, level.getSeaLevel()) != Biome.Precipitation.NONE;
+		}
 	}
 
 	@Override
