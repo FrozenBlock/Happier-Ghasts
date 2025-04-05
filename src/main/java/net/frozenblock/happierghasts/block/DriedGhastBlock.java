@@ -30,6 +30,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -130,6 +131,11 @@ public class DriedGhastBlock extends HorizontalDirectionalBlock implements Simpl
 					ghastling.snapTo(vec3.x(), vec3.y(), vec3.z(), Mth.wrapDegrees(blockState.getValue(FACING).toYRot() * 360F), 0F);
 					ghastling.updateHomePosition();
 					serverLevel.addFreshEntity(ghastling);
+
+					Player player = serverLevel.getNearestPlayer(ghastling, 64D);
+					if (player != null) {
+						ghastling.setOwner(player);
+					}
 				}
 			}
 		} else {
