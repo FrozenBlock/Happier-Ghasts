@@ -1,6 +1,6 @@
 /*
  * Copyright 2025 FrozenBlock
- * This file is part of Trailier Tales.
+ * This file is part of Happier Ghasts.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public
