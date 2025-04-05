@@ -1,4 +1,4 @@
-package net.frozenblock.happierghasts.mixin.server;
+package net.frozenblock.happierghasts.mixin.common;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;

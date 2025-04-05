@@ -13,8 +13,8 @@
     "client.LocalPlayerMixin"
   ],
   "mixins": [
-    "animal.AnimalMixin",
-    "datagen.RecipeBuilderMixin",
-    "server.ServerGamePacketListenerImplMixin"
+    "common.AnimalMixin",
+    "common.ServerGamePacketListenerImplMixin",
+    "datagen.RecipeBuilderMixin"
   ]
 }

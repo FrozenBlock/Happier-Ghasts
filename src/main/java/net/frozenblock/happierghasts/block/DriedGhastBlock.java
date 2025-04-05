@@ -37,6 +37,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
@@ -88,6 +89,7 @@ public class DriedGhastBlock extends HorizontalDirectionalBlock implements Simpl
 		RandomSource randomSource
 	) {
 		if (blockState.getValue(WATERLOGGED)) tickAccess.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelReader));
+		if (!blockState.canSurvive(levelReader, blockPos)) return Blocks.AIR.defaultBlockState();
 		tickAccess.scheduleTick(blockPos, this, HYDRATION_DELAY);
 		return super.updateShape(blockState, levelReader, tickAccess, blockPos, direction, blockPos2, blockState2, randomSource);
 	}
@@ -110,8 +112,8 @@ public class DriedGhastBlock extends HorizontalDirectionalBlock implements Simpl
 	}
 
 	@Override
-	protected void tick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource) {
-		if (!this.canSurvive(blockState, serverLevel, blockPos)) {
+	protected void tick(@NotNull BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource) {
+		if (!blockState.canSurvive(serverLevel, blockPos)) {
 			serverLevel.destroyBlock(blockPos, true);
 			return;
 		}
@@ -148,6 +150,10 @@ public class DriedGhastBlock extends HorizontalDirectionalBlock implements Simpl
 
 	@Override
 	protected void randomTick(@NotNull BlockState blockState, @NotNull ServerLevel serverLevel, BlockPos blockPos, @NotNull RandomSource randomSource) {
+		if (!this.canSurvive(blockState, serverLevel, blockPos)) {
+			serverLevel.destroyBlock(blockPos, true);
+			return;
+		}
 		if (blockState.getValue(WATERLOGGED)) serverLevel.levelEvent(LevelEvent.PARTICLES_EGG_CRACK, blockPos, 0);
 		serverLevel.playSound(null, blockPos, getAmbientSound(blockState), SoundSource.BLOCKS, 0.5F, 0.9F + randomSource.nextFloat() * 0.2F);
 	}

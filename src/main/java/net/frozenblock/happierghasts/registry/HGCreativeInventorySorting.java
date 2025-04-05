@@ -26,6 +26,8 @@ import net.minecraft.world.level.ItemLike;
 public class HGCreativeInventorySorting {
 
 	public static void init() {
+		addBeforeInNaturalBlocks(Items.BONE_BLOCK, HGBlocks.DRIED_GHAST);
+
 		addAfterInSpawnEggs(Items.GUARDIAN_SPAWN_EGG, HGItems.HAPPY_GHAST_SPAWN_EGG);
 
 		addAfterInToolsAndUtilities(Items.SADDLE, HGItems.WHITE_HARNESS);
@@ -57,11 +59,6 @@ public class HGCreativeInventorySorting {
 	private static void addAfterInToolsAndUtilities(ItemLike comparedItem, ItemLike item) {
 		FrozenCreativeTabs.addAfter(comparedItem, item, CreativeModeTabs.TOOLS_AND_UTILITIES);
 	}
-
-	private static void addBeforeInSpawnEggs(ItemLike comparedItem, ItemLike item) {
-		FrozenCreativeTabs.addBefore(comparedItem, item, CreativeModeTabs.SPAWN_EGGS);
-	}
-
 	private static void addAfterInSpawnEggs(ItemLike comparedItem, ItemLike item) {
 		FrozenCreativeTabs.addAfter(comparedItem, item, CreativeModeTabs.SPAWN_EGGS);
 	}
