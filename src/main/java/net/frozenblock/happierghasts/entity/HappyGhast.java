@@ -84,7 +84,11 @@ public class HappyGhast extends Animal implements FlyingAnimal, OwnableEntity {
 	}
 
 	public void clearAndSetGoalsForAge() {
-		this.goalSelector.removeAllGoals(goal -> true);
+		this.goalSelector.removeAllGoals(goal -> {
+			goal.stop();
+			return true;
+		});
+
 		if (this.isBaby()) {
 			this.goalSelector.addGoal(1, new HappyGhastTemptGoal(this, 1.25D, itemStack -> itemStack.is(Items.SNOWBALL), happyGhast -> true));
 			this.goalSelector.addGoal(2, new HappyGhastReturnToHomeGoal(this));

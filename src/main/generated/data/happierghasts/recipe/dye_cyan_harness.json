@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "harness",
+  "ingredients": [
+    "minecraft:cyan_dye",
+    [
+      "happierghasts:black_harness",
+      "happierghasts:blue_harness",
+      "happierghasts:brown_harness",
+      "happierghasts:gray_harness",
+      "happierghasts:green_harness",
+      "happierghasts:light_blue_harness",
+      "happierghasts:light_gray_harness",
+      "happierghasts:lime_harness",
+      "happierghasts:magenta_harness",
+      "happierghasts:orange_harness",
+      "happierghasts:pink_harness",
+      "happierghasts:purple_harness",
+      "happierghasts:red_harness",
+      "happierghasts:yellow_harness",
+      "happierghasts:white_harness"
+    ]
+  ],
+  "result": {
+    "count": 1,
+    "id": "happierghasts:cyan_harness"
+  }
+}

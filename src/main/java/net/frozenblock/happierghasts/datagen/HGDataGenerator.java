@@ -23,6 +23,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.frozenblock.happierghasts.datagen.loot.HGBlockLootProvider;
 import net.frozenblock.happierghasts.datagen.model.HGEquipmentAssetProvider;
 import net.frozenblock.happierghasts.datagen.model.HGModelProvider;
+import net.frozenblock.happierghasts.datagen.recipe.HGRecipeProvider;
 import net.frozenblock.happierghasts.datagen.tag.HGEntityTagProvider;
 import net.frozenblock.happierghasts.datagen.tag.HGItemTagProvider;
 import net.frozenblock.lib.feature_flag.api.FeatureFlagApi;
@@ -43,6 +44,7 @@ public final class HGDataGenerator implements DataGeneratorEntrypoint {
 
 		// DATA
 		pack.addProvider(HGBlockLootProvider::new);
+		pack.addProvider(HGRecipeProvider::new);
 		pack.addProvider(HGEntityTagProvider::new);
 		pack.addProvider(HGItemTagProvider::new);
 	}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "dried_ghast",
+  "key": {
+    "#": "minecraft:bone_block",
+    "*": "minecraft:ghast_tear"
+  },
+  "pattern": [
+    "***",
+    "*#*",
+    "***"
+  ],
+  "result": {
+    "count": 1,
+    "id": "happierghasts:dried_ghast"
+  }
+}

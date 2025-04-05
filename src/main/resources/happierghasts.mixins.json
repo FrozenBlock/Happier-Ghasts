@@ -2,6 +2,7 @@
   "required": true,
   "minVersion": "0.8.5",
   "package": "net.frozenblock.happierghasts.mixin",
+  "plugin": "net.frozenblock.happierghasts.mixin.HGMixinPlugin",
   "compatibilityLevel": "JAVA_21",
   "injectors": {
     "defaultRequire": 1
@@ -12,6 +13,7 @@
     "client.LocalPlayerMixin"
   ],
   "mixins": [
-    "AnimalMixin"
+    "animal.AnimalMixin",
+    "datagen.RecipeBuilderMixin"
   ]
 }

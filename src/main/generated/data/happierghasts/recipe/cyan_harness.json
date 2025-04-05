@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "harness",
+  "key": {
+    "#": "minecraft:glass",
+    "L": "minecraft:leather",
+    "W": "minecraft:cyan_wool"
+  },
+  "pattern": [
+    "LLL",
+    "#W#"
+  ],
+  "result": {
+    "count": 1,
+    "id": "happierghasts:cyan_harness"
+  }
+}

@@ -92,6 +92,11 @@ public class DriedGhastBlock extends HorizontalDirectionalBlock implements Simpl
 	}
 
 	@Override
+	protected boolean canSurvive(BlockState blockState, @NotNull LevelReader levelReader, @NotNull BlockPos blockPos) {
+		return levelReader.getBlockState(blockPos.below()).isSolid();
+	}
+
+	@Override
 	protected void onPlace(BlockState blockState, Level level, BlockPos blockPos, BlockState blockState2, boolean bl) {
 		super.onPlace(blockState, level, blockPos, blockState2, bl);
 		if (blockState.getValue(WATERLOGGED)) level.levelEvent(LevelEvent.PARTICLES_EGG_CRACK, blockPos, 0);
