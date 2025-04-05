@@ -52,7 +52,6 @@ import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.OwnableEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.player.Player;
@@ -93,8 +92,6 @@ public class HappyGhast extends Animal implements FlyingAnimal, OwnableEntity {
 			goal.stop();
 			return true;
 		});
-
-		this.goalSelector.addGoal(0, new FloatGoal(this));
 
 		if (this.isBaby()) {
 			this.goalSelector.addGoal(1, new HappyGhastTemptGoal(this, 1.25D, itemStack -> itemStack.is(Items.SNOWBALL), happyGhast -> true));
@@ -332,8 +329,13 @@ public class HappyGhast extends Animal implements FlyingAnimal, OwnableEntity {
 					this.heal(1F);
 				}
 			}
+
+			if (this.isInWater()) {
+				this.setDeltaMovement(this.getDeltaMovement().add(0D, 0.04D, 0D));
+			}
 		}
 	}
+
 
 	public boolean isRainingOrSnowingAt() {
 		Level level = this.level();
