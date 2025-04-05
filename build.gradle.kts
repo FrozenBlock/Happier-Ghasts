@@ -451,9 +451,6 @@ modrinth {
     dependencies {
         required.project("fabric-api")
         required.project("frozenlib")
-        required.project("wilder-wild")
-        optional.project("cloth-config")
-        optional.project("modmenu")
     }
 }
 

@@ -3,17 +3,20 @@
   "id": "${mod_id}",
   "version": "${version}",
   "name": "Happier Ghasts",
-  "description": "DSAJHBVFVBDSYU!",
+  "description": "Adds the Dried Ghast, Ghastling, and Happy Ghast",
   "authors": [
     "Lunade"
   ],
+  "contributors": [
+    "Textures, models, and sounds from Bedrock Edition."
+  ],
   "contact": {
-    "homepage": "https://modrinth.com/mod/wilder-wild",
-    "sources": "https://github.com/FrozenBlock/WilderWild",
-    "issues": "https://github.com/FrozenBlock/WilderWild/issues"
+    "homepage": "https://modrinth.com/mod/happier-ghasts",
+    "sources": "https://github.com/FrozenBlock/HappierGhasts",
+    "issues": "https://github.com/FrozenBlock/HappierGhasts/issues"
   },
   "license": "GPL-3.0",
-  "icon": "assets/happierghasts/icon.png",
+  "icon": "assets/happierghasts/happier_ghasts_icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
@@ -35,10 +38,6 @@
     "fabric-api": "*",
     "minecraft": "${minecraft_version}",
     "java": ">=21"
-  },
-  "suggests": {
-    "cloth-config": "*",
-    "terrablender": "*"
   },
   "custom": {
     "modmenu": {
